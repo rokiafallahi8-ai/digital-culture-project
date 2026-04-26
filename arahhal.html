@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrahal | الرحال - Advanced Travel Experience</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #2c7a6e;    /* Teal */
+            --secondary: #1e6f8c;  /* Ocean */
+            --accent: #f4c542;     /* Summer Sun */
+            --bg-cloud: #f8f9fa;   /* White Cloud */
+            --text-dark: #2f5d3a;  /* Dark Green */
+            --bg-vanilla: #fff2e0; /* Vanilla */
+            --highlight: #f9e45b;  /* Limoncello */
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        [dir="rtl"] {
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-cloud);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in { animation: fadeIn 0.8s ease forwards; }
+
+        /* --- Header & Nav --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(44, 122, 110, 0.1);
+            transition: var(--transition);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .nav-links a:hover { color: var(--primary); }
+
+        .lang-switcher {
+            display: flex;
+            gap: 10px;
+            background: var(--bg-vanilla);
+            padding: 5px;
+            border-radius: 30px;
+        }
+
+        .lang-btn {
+            border: none;
+            background: none;
+            padding: 5px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 85vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://i.pinimg.com/736x/20/c0/72/20c072e08baf01c28dc2da44d813f3eb.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+            margin-bottom: 50px;
+        }
+
+        .hero-content {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            padding: 40px;
+            border-radius: 30px;
+            max-width: 800px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .hero h1 { font-size: 4rem; margin-bottom: 10px; }
+        .hero p { font-size: 1.4rem; font-style: italic; opacity: 0.9; }
+
+        /* --- Search Bar --- */
+        .search-container {
+            margin-top: -50px;
+            display: flex;
+            justify-content: center;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-wrapper {
+            background: var(--white);
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+            display: flex;
+            width: 100%;
+            max-width: 700px;
+            gap: 15px;
+            border: 2px solid var(--primary);
+        }
+
+        .search-wrapper input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .search-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .search-btn:hover { background: var(--secondary); transform: scale(1.05); }
+
+        /* --- Categories --- */
+        .section-title {
+            text-align: center;
+            margin: 60px 0 40px;
+            font-size: 2.2rem;
+            color: var(--primary);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .category-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid transparent;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            background: var(--bg-vanilla);
+        }
+
+        .category-icon { font-size: 2.5rem; margin-bottom: 10px; display: block; }
+        .category-card h3 { font-size: 0.9rem; font-weight: 700; }
+
+        /* --- Trips Grid --- */
+        .trips-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .trips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .trip-card {
+            background: var(--white);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .trip-card:hover { transform: translateY(-10px); }
+
+        .trip-img {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .trip-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--highlight);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            color: var(--text-dark);
+        }
+
+        .trip-info { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .trip-info h2 { font-size: 1.3rem; margin-bottom: 10px; color: var(--primary); }
+        .trip-meta { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.85rem; font-weight: 600; color: var(--secondary); }
+        .trip-desc { font-size: 0.9rem; color: #666; margin-bottom: 20px; flex-grow: 1; }
+        
+        .inclusions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+        .inc-tag { background: #eef7f6; padding: 4px 10px; border-radius: 5px; font-size: 0.75rem; color: var(--primary); font-weight: 600; }
+
+        .card-footer { display: flex; gap: 10px; }
+        .btn-detail { flex: 1; background: var(--bg-vanilla); color: var(--text-dark); border: none; padding: 12px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: var(--transition); }
+        .btn-book { flex: 1; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: var(--transition); }
+        .btn-book:hover { background: var(--secondary); }
+
+        /* --- Filters --- */
+        .filters-bar {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            box-shadow: var(--shadow);
+        }
+
+        .filter-group select {
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            outline: none;
+            font-weight: 600;
+            background: var(--bg-cloud);
+        }
+
+        /* --- Trip Detail Modal --- */
+        .modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--white);
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            border-radius: 30px;
+            overflow-y: auto;
+            position: relative;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--white);
+            background: var(--primary);
+            width: 45px; height: 45px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10;
+        }
+
+        .modal-body { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 30px; }
+        .modal-img-main { width: 100%; border-radius: 20px; box-shadow: var(--shadow); }
+        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .gallery img { width: 100%; height: 80px; object-fit: cover; border-radius: 10px; }
+
+        @media (max-width: 768px) {
+            .modal-body { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+        }
+
+        /* --- Pages --- */
+        .page { display: none; padding-top: 100px; min-height: 100vh; }
+        .page.active { display: block; }
+
+        /* --- FAQ Accordion --- */
+        .faq-section { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        .faq-item { background: var(--white); margin-bottom: 15px; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .faq-question { padding: 20px; cursor: pointer; font-weight: 700; display: flex; justify-content: space-between; align-items: center; background: var(--bg-vanilla); }
+        .faq-answer { padding: 0 20px; max-height: 0; overflow: hidden; transition: var(--transition); }
+        .faq-item.active .faq-answer { padding: 20px; max-height: 200px; }
+
+        /* --- Forms (Booking/Login) --- */
+        .form-container {
+            max-width: 500px;
+            margin: 40px auto;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+        }
+        .form-container h2 { margin-bottom: 25px; text-align: center; color: var(--primary); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            outline: none;
+        }
+        .submit-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: 700; cursor: pointer; }
+
+        /* --- Reviews --- */
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .review-card { background: var(--white); padding: 25px; border-radius: 20px; box-shadow: var(--shadow); border-left: 5px solid var(--accent); }
+        .stars { color: var(--accent); margin-bottom: 10px; }
+        .review-author { margin-top: 15px; font-weight: 700; font-size: 0.9rem; }
+
+        /* --- Footer --- */
+        footer { background: var(--text-dark); color: white; padding: 60px 20px 20px; margin-top: 80px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
+        .footer-col h3 { margin-bottom: 20px; color: var(--accent); }
+        .footer-bottom { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 10px; cursor: pointer; opacity: 0.8; transition: 0.3s; }
+        .footer-links li:hover { color: var(--accent); opacity: 1; }
+
+        /* --- Success Message --- */
+        .success-msg { color: #2c7a6e; background: #d4edda; padding: 15px; border-radius: 10px; text-align: center; margin-top: 20px; display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="mainHeader">
+        <nav>
+            <a href="#" class="logo" onclick="navigateTo('home')">
+                <i class="fas fa-route"></i>
+                <span data-key="brand">Arrahal الرحال</span>
+            </a>
+            <ul class="nav-links">
+                <li><a onclick="navigateTo('home')" data-key="nav-home">Home</a></li>
+                <li><a onclick="navigateTo('trips')" data-key="nav-trips">Trips</a></li>
+                <li><a onclick="navigateTo('reviews')" data-key="nav-reviews">Reviews</a></li>
+                <li><a onclick="navigateTo('booking')" data-key="nav-booking">Book Now</a></li>
+                <li><a onclick="navigateTo('account')" data-key="nav-account">Account</a></li>
+            </ul>
+            <div class="lang-switcher">
+                <button class="lang-btn active" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" onclick="setLanguage('fr')">FR</button>
+                <button class="lang-btn" onclick="setLanguage('ar')">AR</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- PAGE: HOME -->
+    <section id="home" class="page active">
+        <div class="hero">
+            <div class="hero-content">
+                <h1 data-key="hero-title">Arrahal الرحال</h1>
+                <p data-key="hero-quote">"Travel is not about places, it is about the feeling of becoming free."</p>
+            </div>
+        </div>
+
+        <div class="search-container">
+            <div class="search-wrapper">
+                <i class="fas fa-search" style="align-self: center; color: var(--primary);"></i>
+                <input type="text" id="searchInput" data-placeholder="search-placeholder" placeholder="Where do you want to go?">
+                <button class="search-btn" onclick="handleSearch()" data-key="search-btn">Search</button>
+            </div>
+        </div>
+
+        <h2 class="section-title" data-key="categories-title">Explore by Category</h2>
+        <div class="categories-grid" id="categoryGrid">
+            <!-- Rendered by JS -->
+        </div>
+
+        <h2 class="section-title" data-key="best-deals">Featured Best Deals</h2>
+        <div class="trips-container">
+            <div class="trips-grid" id="featuredTrips">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+
+        <section class="faq-section">
+            <h2 class="section-title" data-key="faq-title">Frequently Asked Questions</h2>
+            <div id="faqAccordion"></div>
+        </section>
+
+        <section id="homeReviews">
+            <h2 class="section-title" data-key="latest-reviews">What Travelers Say</h2>
+            <div class="reviews-grid" id="featuredReviews"></div>
+        </section>
+    </section>
+
+    <!-- PAGE: ALL TRIPS -->
+    <section id="trips" class="page">
+        <div class="trips-container">
+            <h2 class="section-title" data-key="all-trips-title">All Destinations</h2>
+            
+            <div class="filters-bar">
+                <div class="filter-group">
+                    <select id="filterCategory" onchange="applyFilters()">
+                        <option value="all" data-key="filter-all-cat">All Categories</option>
+                        <option value="morocco" data-key="cat-morocco">Inside Morocco</option>
+                        <option value="outside" data-key="cat-outside">Outside Morocco</option>
+                        <option value="spiritual" data-key="cat-spiritual">Spiritual</option>
+                        <option value="hidden" data-key="cat-hidden">Hidden Gems</option>
+                        <option value="volunteer" data-key="cat-volunteer">Volunteering</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <select id="filterBudget" onchange="applyFilters()">
+                        <option value="all" data-key="filter-all-budget">Any Budget</option>
+                        <option value="low" data-key="budget-low">< 2000 MAD</option>
+                        <option value="mid" data-key="budget-mid">2000 - 5000 MAD</option>
+                        <option value="high" data-key="budget-high">5000 - 10000 MAD</option>
+                        <option value="lux" data-key="budget-lux">> 10000 MAD</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <select id="filterDuration" onchange="applyFilters()">
+                        <option value="all" data-key="filter-all-dur">Any Duration</option>
+                        <option value="short" data-key="dur-short">1-3 Days</option>
+                        <option value="medium" data-key="dur-med">4-6 Days</option>
+                        <option value="long" data-key="dur-long">7+ Days</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="trips-grid" id="allTripsGrid">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE: REVIEWS -->
+    <section id="reviews" class="page">
+        <div class="trips-container">
+            <h2 class="section-title" data-key="nav-reviews">Reviews</h2>
+            <div class="reviews-grid" id="allReviewsGrid"></div>
+            
+            <div class="form-container">
+                <h2 data-key="write-review">Write a Review</h2>
+                <div class="form-group">
+                    <label data-key="label-name">Name</label>
+                    <input type="text" id="revName">
+                </div>
+                <div class="form-group">
+                    <label data-key="label-loc">Location</label>
+                    <input type="text" id="revLoc">
+                </div>
+                <div class="form-group">
+                    <label data-key="label-rating">Rating</label>
+                    <select id="revStars">
+                        <option value="5">⭐⭐⭐⭐⭐</option>
+                        <option value="4">⭐⭐⭐⭐</option>
+                        <option value="3">⭐⭐⭐</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-key="label-text">Review</label>
+                    <textarea id="revText" rows="4"></textarea>
+                </div>
+                <button class="submit-btn" onclick="submitReview()" data-key="btn-submit-rev">Submit Review</button>
+                <div id="revSuccess" class="success-msg" data-key="msg-rev-success">Thank you for your review!</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE: BOOKING -->
+    <section id="booking" class="page">
+        <div class="form-container">
+            <h2 data-key="nav-booking">Book Your Trip</h2>
+            <div class="form-group">
+                <label data-key="label-select-trip">Select Destination</label>
+                <select id="bookingTripSelect"></select>
+            </div>
+            <div class="form-group">
+                <label data-key="label-name">Full Name</label>
+                <input type="text" placeholder="John Doe">
+            </div>
+            <div class="form-group">
+                <label data-key="label-email">Email</label>
+                <input type="email" placeholder="email@example.com">
+            </div>
+            <div class="form-group">
+                <label data-key="label-date">Preferred Date</label>
+                <input type="date">
+            </div>
+            <button class="submit-btn" onclick="submitBooking()" data-key="btn-confirm">Confirm Booking</button>
+            <div id="bookingSuccess" class="success-msg" data-key="msg-book-success">Booking successful! We will contact you soon.</div>
+        </div>
+    </section>
+
+    <!-- PAGE: ACCOUNT -->
+    <section id="account" class="page">
+        <div class="form-container">
+            <h2 data-key="nav-account">Member Access</h2>
+            <div class="form-group">
+                <label data-key="label-email">Email</label>
+                <input type="email">
+            </div>
+            <div class="form-group">
+                <label data-key="label-pass">Password</label>
+                <input type="password">
+            </div>
+            <button class="submit-btn" onclick="submitLogin()" data-key="btn-login">Login</button>
+            <div id="loginSuccess" class="success-msg" data-key="msg-login-success">Welcome back to Arrahal!</div>
+        </div>
+    </section>
+
+    <!-- Modal: Trip Detail -->
+    <div class="modal" id="tripModal">
+        <div class="close-modal" onclick="closeModal()">&times;</div>
+        <div class="modal-content" id="modalContent">
+            <!-- Filled by JS -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3 data-key="brand">Arrahal الرحال</h3>
+                <p id="aboutText"></p>
+            </div>
+            <div class="footer-col">
+                <h3 data-key="quick-links">Quick Links</h3>
+                <ul class="footer-links">
+                    <li onclick="navigateTo('home')" data-key="nav-home">Home</li>
+                    <li onclick="navigateTo('trips')" data-key="nav-trips">Trips</li>
+                    <li onclick="navigateTo('reviews')" data-key="nav-reviews">Reviews</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3 data-key="contact-info">Contact Us</h3>
+                <p>📍 Mohammedia, Morocco</p>
+                <p>📞 +212 600-000000</p>
+                <p>📧 contact@arrahal.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 Arrahal. University Practice Exercise. Built with ❤️ for Travelers.
+        </div>
+    </footer>
+
+    <script>
+        // --- DATA ---
+        const tripsData = [
+            { id: 1, best: true, category: 'morocco', price: 4500, dur: 5, img: 'https://i.pinimg.com/1200x/6b/9f/ba/6b9fba006b9c6d1551a2b90fbc94e378.jpg',
+              title: { en: 'Marrakech & Desert Escape', fr: 'Évasion Marrakech & Désert', ar: 'مراكش وسحر الصحراء' },
+              desc: { en: 'Explore the red city of Marrakech and experience a magical night in the Sahara.', fr: 'Explorez la ville rouge de Marrakech et vivez une nuit magique dans le Sahara.', ar: 'اكتشف المدينة الحمراء مراكش واستمتع بليلة ساحرة في قلب الصحراء الكبرى.' },
+              inc: ['Transport', 'Hotel', 'Guide', 'Breakfast & Dinner'], dates: 'Flexible' },
+            { id: 2, best: true, category: 'morocco', price: 1800, dur: 3, img: 'https://i.pinimg.com/736x/9e/d9/a9/9ed9a9a08865654ec4e9bc6bbeb888a1.jpg',
+              title: { en: 'Chefchaouen Blue Dream', fr: 'Rêve Bleu à Chefchaouen', ar: 'حلم شفشاون الأزرق' },
+              desc: { en: 'Discover the blue pearl of Morocco with relaxing walks and mountain views.', fr: 'Découvrez la perle bleue du Maroc avec des promenades relaxantes.', ar: 'اكتشف الجوهرة الزرقاء للمغرب مع جولات جبلية مريحة ومناظر خلابة.' },
+              inc: ['Transport', 'Hotel', 'Breakfast'], dates: 'Flexible' },
+            { id: 3, best: false, category: 'morocco', price: 2000, dur: 3, img: 'https://cdn.getyourguide.com/img/location/595256244e7ac.jpeg/88.jpg',
+              title: { en: 'Essaouira Ocean Escape', fr: 'Évasion à Essaouira', ar: 'نسيم الصويرة' },
+              desc: { en: 'Relax in the coastal city with fresh air and calm vibes.', fr: 'Détendez-vous dans la ville côtière avec un air pur.', ar: 'استرخ في مدينة الرياح والأجواء الهادئة.' },
+              inc: ['Transport', 'Hotel', 'Breakfast'], dates: 'June 12 / July 8 / August 15' },
+            { id: 4, best: false, category: 'morocco', price: 3200, dur: 4, img: 'https://a.storyblok.com/f/250263/1512x982/2dea9dbc71/274dc15e-3142-46d5-9a8e-fd6735ec6840.jpg/m/3840x0/filters:quality(50)',
+              title: { en: 'Fes Cultural Journey', fr: 'Voyage Culturel à Fès', ar: 'رحلة فاس الثقافية' },
+              desc: { en: 'Discover the oldest medina in the world.', fr: 'Découvrez la plus ancienne médina du monde.', ar: 'اكتشف أقدم مدينة في العالم وعبق التاريخ.' },
+              inc: ['Guide', 'Hotel', 'Transport'], dates: 'June 20 / July 18' },
+            { id: 5, best: false, category: 'morocco', price: 4000, dur: 5, img: 'https://tse1.mm.bing.net/th/id/OIP.FBYbWcLYI4oyPA5S2_yCrAHaE8?rs=1&pid=ImgDetMain&o=7&rm=3',
+              title: { en: 'Agadir Beach Holiday', fr: 'Vacances à Agadir', ar: 'عطلة شاطئ أكادير' },
+              desc: { en: 'Enjoy sunshine and golden beaches.', fr: 'Profitez du soleil et des plages dorées.', ar: 'استمتع بأشعة الشمس والشواطئ الذهبية.' },
+              inc: ['Hotel', 'Breakfast'], dates: 'July 1 / August 10' },
+            { id: 6, best: false, category: 'morocco', price: 2500, dur: 3, img: 'https://www.pinyourfootsteps.com/wp-content/uploads/2024/11/tangier_morocco-7-min-scaled.jpg',
+              title: { en: 'Tangier Northern Escape', fr: 'Évasion au Nord (Tanger)', ar: 'هروب إلى عروس الشمال' },
+              desc: { en: 'Explore where Africa meets Europe.', fr: 'Explorez là où l\'Afrique rencontre l\'Europe.', ar: 'استكشف ملتقى القارات في طنجة.' },
+              inc: ['Transport', 'Hotel'], dates: 'June 25 / July 30' },
+            { id: 7, best: true, category: 'outside', price: 9500, dur: 6, img: 'https://i.pinimg.com/1200x/75/01/c4/7501c49e3841324526c63b67263f9b27.jpg',
+              title: { en: 'Istanbul Discovery', fr: 'Découverte d\'Istanbul', ar: 'اكتشاف إسطنبول' },
+              desc: { en: 'Visit Hagia Sophia and enjoy a Bosphorus cruise.', fr: 'Visitez Sainte-Sophie et profitez d\'une croisière.', ar: 'زر آيا صوفيا واستمتع برحلة في البوسفور.' },
+              inc: ['Flight ✈️', 'Hotel', 'Guide'], dates: 'Flexible' },
+            { id: 8, best: true, category: 'outside', price: 11000, dur: 5, img: 'https://i.pinimg.com/1200x/79/39/39/79393997edfe5b5798da887aa993b892.jpg',
+              title: { en: 'Paris Romantic Trip', fr: 'Paris Romantique', ar: 'رحلة باريس الرومانسية' },
+              desc: { en: 'Discover Eiffel Tower and charming Paris streets.', fr: 'Découvrez la Tour Eiffel et les rues de Paris.', ar: 'اكتشف برج إيفل وشوارع باريس الساحرة.' },
+              inc: ['Flight ✈️', 'Hotel', 'Breakfast'], dates: 'Flexible' },
+            { id: 9, best: false, category: 'outside', price: 13000, dur: 5, img: 'https://ik.imagekit.io/tvlk/blog/2022/05/Burj-Khalifa02.jpg?tr=dpr-2,w-675',
+              title: { en: 'Dubai Luxury Trip', fr: 'Luxe à Dubaï', ar: 'فخامة دبي' },
+              desc: { en: 'Experience luxury and modern lifestyle.', fr: 'Vivez le luxe et le style moderne.', ar: 'اختبر الفخامة وأسلوب الحياة العصري.' },
+              inc: ['Flight ✈️', 'Hotel', 'Breakfast'], dates: 'July 5 / August 12' },
+            { id: 10, best: false, category: 'outside', price: 10500, dur: 6, img: 'https://www.sagrada-familia-barcelona.com/wp-content/uploads/2024/09/Sagrada_Familia_Barcellona-1024x683.jpg',
+              title: { en: 'Barcelona Vibes', fr: 'Vibrations de Barcelone', ar: 'أجواء برشلونة' },
+              desc: { en: 'Beaches, culture, and amazing nightlife.', fr: 'Plages, culture et vie nocturne.', ar: 'شواطئ وثقافة وحياة ليلية مذهلة.' },
+              inc: ['Flight ✈️', 'Hotel'], dates: 'June 18 / July 20' },
+            { id: 11, best: false, category: 'outside', price: 9800, dur: 5, img: 'https://www.exploreitaly.com/wp-content/uploads/2018/03/Explore-Italy-Attraction-Rome-Colosseum-1200x630.jpg',
+              title: { en: 'Rome Historical Tour', fr: 'Tour Historique de Rome', ar: 'تاريخ روما' },
+              desc: { en: 'Discover ancient history in Italy.', fr: 'Découvrez l\'histoire ancienne en Italie.', ar: 'اكتشف التاريخ القديم في إيطاليا.' },
+              inc: ['Flight ✈️', 'Hotel', 'Guide'], dates: 'July 10 / August 22' },
+            { id: 12, best: false, category: 'outside', price: 15000, dur: 7, img: 'https://windows10spotlight.com/wp-content/uploads/2018/09/c966d0004fa0ffc05d55b50d63b1f189.jpg',
+              title: { en: 'Bali Tropical Escape', fr: 'Bali Tropical', ar: 'بالي الاستوائية' },
+              desc: { en: 'Paradise beaches and pure nature.', fr: 'Plages paradisiaques et nature.', ar: 'شواطئ خلابة وطبيعة بكر.' },
+              inc: ['Flight ✈️', 'Hotel', 'Breakfast'], dates: 'August 5' },
+            { id: 13, best: true, category: 'spiritual', price: 18000, dur: 10, img: 'https://i.pinimg.com/1200x/c7/5b/f3/c75bf3dc8c73547730840a461b235f7a.jpg',
+              title: { en: 'Umrah Journey', fr: 'Voyage de Omra', ar: 'رحلة العمرة' },
+              desc: { en: 'A peaceful spiritual journey to Mecca and Medina.', fr: 'Un voyage spirituel paisible à la Mecque.', ar: 'رحلة إيمانية خاشعة إلى مكة والمدينة.' },
+              inc: ['Flight ✈️', 'Haram Hotel', 'Guide', 'Transport'], dates: 'Flexible' },
+            { id: 14, best: false, category: 'spiritual', price: 70000, dur: 20, img: 'https://cdn.vox-cdn.com/uploads/chorus_image/image/50787355/GettyImages-93497054.0.jpg',
+              title: { en: 'Hajj Premium Package', fr: 'Pack Hajj Premium', ar: 'باقة الحج المتميزة' },
+              desc: { en: 'Complete spiritual journey with 5-star comfort.', fr: 'Voyage spirituel complet avec confort 5 étoiles.', ar: 'رحلة الحج الكاملة بسبل راحة فئة 5 نجوم.' },
+              inc: ['Flight ✈️', '5★ Hotels', 'Meals', 'Guide'], dates: 'Islamic Calendar' },
+            { id: 15, best: true, category: 'hidden', price: 2500, dur: 4, img: 'https://i.pinimg.com/1200x/ca/29/86/ca2986aabc9623996fc62e5ce895a22d.jpg',
+              title: { en: 'Atlas Mountains Adventure', fr: 'Aventure Montagnes de l\'Atlas', ar: 'مغامرة جبال الأطلس' },
+              desc: { en: 'Hiking in the Atlas with local villages.', fr: 'Randonnée dans l\'Atlas avec villages locaux.', ar: 'تجربة المشي الجبلي في الأطلس والقرى الأمازيغية.' },
+              inc: ['Guide', 'Transport', 'Food'], dates: 'Flexible' },
+            { id: 16, best: true, category: 'hidden', price: 7000, dur: 5, img: 'https://i.pinimg.com/1200x/5b/0e/f0/5b0ef08cc8ccc3743b532021e5b4c17d.jpg',
+              title: { en: 'Dakhla Escape', fr: 'Évasion à Dakhla', ar: 'سحر الداخلة' },
+              desc: { en: 'Relax by the ocean and lagoon in Dakhla.', fr: 'Détendez-vous au bord de la lagune.', ar: 'استرخِ بجانب المحيط والبحيرة الجميلة.' },
+              inc: ['Flight ✈️', 'Hotel'], dates: 'Flexible' },
+            { id: 17, best: false, category: 'hidden', price: 3000, dur: 4, img: 'https://www.kevinandamanda.com/wp-content/uploads/2018/09/best-luxury-camp-sahara-desert-15.jpg',
+              title: { en: 'Sahara Deep Camp', fr: 'Camp au cœur du Sahara', ar: 'مخيم أعماق الصحراء' },
+              desc: { en: 'Deep desert experience with overnight camp.', fr: 'Expérience du désert avec bivouac.', ar: 'تجربة التخييم في قلب الكثبان الرملية.' },
+              inc: ['Transport', 'Camp', 'Meals'], dates: 'June 15 / July 12' },
+            { id: 18, best: false, category: 'hidden', price: 1800, dur: 3, img: 'https://images.adsttc.com/media/images/59e8/3d99/b22e/38b6/a300/063b/newsletter/17091.jpg?1508392341',
+              title: { en: 'Ifrane Forest Retreat', fr: 'Retraite en Forêt d\'Ifrane', ar: 'خلوة غابات إفران' },
+              desc: { en: 'Calm forest escape in the Little Switzerland.', fr: 'Évasion calme dans la petite Suisse.', ar: 'هروب هادئ في غابات سويسرا المغرب.' },
+              inc: ['Hotel', 'Breakfast'], dates: 'Flexible' },
+            { id: 19, best: false, category: 'hidden', price: 900, dur: 2, img: 'https://www.tracedirecte.com/media/original_images/akchour-maroc.jpg.1920x0_q85.jpg',
+              title: { en: 'Akchour Waterfalls', fr: 'Cascades d\'Akchour', ar: 'شلالات أقشور' },
+              desc: { en: 'Hidden waterfalls and natural pools.', fr: 'Cascades cachées et piscines naturelles.', ar: 'شلالات مخفية وأحواض مياه طبيعية.' },
+              inc: ['Transport', 'Guide', 'Lunch'], dates: 'Flexible' },
+            { id: 20, best: false, category: 'hidden', price: 2000, dur: 3, img: 'https://tse2.mm.bing.net/th/id/OIP.QBjoBSCGD8wH8-PZ576P6wHaE7?rs=1&pid=ImgDetMain&o=7&rm=3',
+              title: { en: 'Legzira Beach Adventure', fr: 'Aventure Plage Legzira', ar: 'مغامرة شاطئ لڭزيرة' },
+              desc: { en: 'Natural arches and wild ocean vibes.', fr: 'Arches naturelles et océan sauvage.', ar: 'أقواس طبيعية فريدة وأجواء برية.' },
+              inc: ['Transport', 'Camping', 'Meals'], dates: 'Flexible' },
+            { id: 21, best: true, category: 'volunteer', price: 0, dur: 15, img: 'https://i.pinimg.com/736x/c7/c7/75/c7c775b4b8e76bcaa58c7c444dfa9dd1.jpg',
+              title: { en: 'Medical Convoy - Al Haouz', fr: 'Convoi Médical - Al Haouz', ar: 'قافلة طبية - الحوز' },
+              desc: { en: 'Help people in need while discovering rural life.', fr: 'Aidez les personnes dans le besoin.', ar: 'ساعد المحتاجين واكتشف الحياة القروية.' },
+              inc: ['Stay with family', 'Food'], dates: 'Flexible' },
+        ];
+
+        const reviewsData = [
+            { id: 1, name: "Sara", loc: "Casablanca", text: "This was the best trip of my life!", stars: 5 },
+            { id: 2, name: "Youssef", loc: "Rabat", text: "Amazing experience, especially the desert tour.", stars: 4 },
+            { id: 3, name: "Lina", loc: "Paris", text: "Very professional organization. Loved it.", stars: 5 },
+            { id: 4, name: "Ahmed", loc: "Tangier", text: "Umrah trip was peaceful and well organized.", stars: 5 },
+            { id: 5, name: "Imane", loc: "Marrakech", text: "Everything was smooth from booking to return.", stars: 5 },
+            { id: 6, name: "Hamza", loc: "Fes", text: "Loved the Morocco trips, very authentic.", stars: 4 },
+            { id: 7, name: "Nadia", loc: "Casablanca", text: "The website is easy and beautiful.", stars: 5 },
+            { id: 8, name: "Karim", loc: "Tangier", text: "Best travel experience ever!", stars: 5 }
+        ];
+
+        const faqData = [
+            { q: { en: "How do I make a payment?", fr: "Comment puis-je payer?", ar: "كيف أقوم بالدفع؟" }, a: { en: "We accept cards, bank transfers, and PayPal.", fr: "Nous acceptons les cartes et PayPal.", ar: "نقبل البطاقات البنكية، التحويلات، وباي بال." }},
+            { q: { en: "What is your refund policy?", fr: "Politique de remboursement?", ar: "ما هي سياسة الاسترجاع؟" }, a: { en: "Full refund 30 days before departure.", fr: "Remboursement complet 30 jours avant.", ar: "استرجاع كامل المبلغ قبل 30 يوماً من الرحلة." }},
+            { q: { en: "Do I need a visa?", fr: "Besoin d'un visa?", ar: "هل أحتاج لتأشيرة؟" }, a: { en: "Depends on your destination. Contact us!", fr: "Cela dépend. Contactez-nous!", ar: "يعتمد ذلك على الوجهة، تواصل معنا للمساعدة." }}
+        ];
+
+        const translations = {
+            en: {
+                "brand": "Arrahal الرحال", "nav-home": "Home", "nav-trips": "Trips", "nav-reviews": "Reviews", "nav-booking": "Book Now", "nav-account": "Account",
+                "hero-title": "Arrahal الرحال", "hero-quote": "\"Travel is not about places, it is about the feeling of becoming free.\"",
+                "search-placeholder": "Where do you want to go?", "search-btn": "Search", "categories-title": "Explore by Category",
+                "best-deals": "Featured Best Deals", "all-trips-title": "All Destinations", "faq-title": "Frequently Asked Questions",
+                "latest-reviews": "What Travelers Say", "filter-all-cat": "All Categories", "filter-all-budget": "Any Budget",
+                "filter-all-dur": "Any Duration", "cat-morocco": "Inside Morocco", "cat-outside": "Outside Morocco",
+                "cat-spiritual": "Spiritual Travel", "cat-hidden": "Hidden Gems", "cat-volunteer": "Volunteering",
+                "budget-low": "Budget (<2000 MAD)", "budget-mid": "Moderate (2k-5k MAD)", "budget-high": "Premium (5k-10k MAD)", "budget-lux": "Luxury (>10k MAD)",
+                "dur-short": "Short (1-3 Days)", "dur-med": "Medium (4-6 Days)", "dur-long": "Long (7+ Days)",
+                "view-details": "Details", "book-btn": "Book", "write-review": "Write a Review", "label-name": "Name", "label-loc": "Location",
+                "label-rating": "Rating", "label-text": "Review", "btn-submit-rev": "Submit Review", "msg-rev-success": "Thank you for your review!",
+                "label-select-trip": "Select Destination", "label-email": "Email", "label-date": "Preferred Date", "btn-confirm": "Confirm Booking",
+                "msg-book-success": "Booking successful!", "label-pass": "Password", "btn-login": "Login", "msg-login-success": "Welcome back!",
+                "about-desc": "Arrahal is a travel platform created to connect passionate travelers with unique experiences across Morocco and the world.",
+                "quick-links": "Quick Links", "contact-info": "Contact Info", "days": "days", "price-tag": "MAD"
+            },
+            fr: {
+                "brand": "Arrahal الرحال", "nav-home": "Accueil", "nav-trips": "Voyages", "nav-reviews": "Avis", "nav-booking": "Réserver", "nav-account": "Compte",
+                "hero-title": "Arrahal الرحال", "hero-quote": "\"Voyager, ce n'est pas seulement découvrir des lieux, c'est ressentir la liberté.\"",
+                "search-placeholder": "Où voulez-vous aller?", "search-btn": "Rechercher", "categories-title": "Explorer par Catégorie",
+                "best-deals": "Meilleures Offres", "all-trips-title": "Toutes les Destinations", "faq-title": "Questions Fréquentes",
+                "latest-reviews": "Ce que disent nos voyageurs", "filter-all-cat": "Toutes Catégories", "filter-all-budget": "Tout Budget",
+                "filter-all-dur": "Toute Durée", "cat-morocco": "Maroc Intérieur", "cat-outside": "International",
+                "cat-spiritual": "Spirituel", "cat-hidden": "Trésors Cachés", "cat-volunteer": "Bénévolat",
+                "budget-low": "Économique (<2k MAD)", "budget-mid": "Modéré (2k-5k MAD)", "budget-high": "Premium (5k-10k MAD)", "budget-lux": "Luxe (>10k MAD)",
+                "dur-short": "Court (1-3 Jours)", "dur-med": "Moyen (4-6 Jours)", "dur-long": "Long (7+ Jours)",
+                "view-details": "Détails", "book-btn": "Réserver", "write-review": "Écrire un avis", "label-name": "Nom", "label-loc": "Emplacement",
+                "label-rating": "Note", "label-text": "Votre Avis", "btn-submit-rev": "Envoyer", "msg-rev-success": "Merci pour votre avis!",
+                "label-select-trip": "Choisir la destination", "label-email": "Email", "label-date": "Date souhaitée", "btn-confirm": "Confirmer",
+                "msg-book-success": "Réservation réussie!", "label-pass": "Mot de passe", "btn-login": "Connexion", "msg-login-success": "Bienvenue!",
+                "about-desc": "Arrahal est une plateforme de voyage qui connecte les passionnés avec des expériences uniques au Maroc et dans le monde.",
+                "quick-links": "Liens Rapides", "contact-info": "Contact", "days": "jours", "price-tag": "MAD"
+            },
+            ar: {
+                "brand": "الرحال Arrahal", "nav-home": "الرئيسية", "nav-trips": "الرحلات", "nav-reviews": "الآراء", "nav-booking": "احجز الآن", "nav-account": "حسابي",
+                "hero-title": "الرحال Arrahal", "hero-quote": "\"السفر ليس مجرد أماكن، بل هو شعور بالحرية والانطلاق.\"",
+                "search-placeholder": "إلى أين تريد الذهاب؟", "search-btn": "بحث", "categories-title": "استكشف حسب الصنف",
+                "best-deals": "أفضل العروض المختارة", "all-trips-title": "جميع الوجهات", "faq-title": "الأسئلة الشائعة",
+                "latest-reviews": "ماذا يقول المسافرون", "filter-all-cat": "جميع الأصناف", "filter-all-budget": "كل الميزانيات",
+                "filter-all-dur": "كل المدد", "cat-morocco": "داخل المغرب", "cat-outside": "خارج المغرب",
+                "cat-spiritual": "رحلات روحانية", "cat-hidden": "أماكن خفية", "cat-volunteer": "رحلات تطوعية",
+                "budget-low": "اقتصادية (< 2000 درهم)", "budget-mid": "متوسطة (2000-5000)", "budget-high": "ممتازة (5000-10000)", "budget-lux": "فاخرة (> 10000)",
+                "dur-short": "قصيرة (1-3 أيام)", "dur-med": "متوسطة (4-6 أيام)", "dur-long": "طويلة (أكثر من 7 أيام)",
+                "view-details": "التفاصيل", "book-btn": "احجز", "write-review": "أضف تقييماً", "label-name": "الاسم", "label-loc": "المدينة",
+                "label-rating": "التقييم", "label-text": "رأيك", "btn-submit-rev": "إرسال التقييم", "msg-rev-success": "شكراً لتقييمك!",
+                "label-select-trip": "اختر الوجهة", "label-email": "البريد الإلكتروني", "label-date": "التاريخ المفضل", "btn-confirm": "تأكيد الحجز",
+                "msg-book-success": "تم الحجز بنجاح! سنتصل بك قريباً.", "label-pass": "كلمة المرور", "btn-login": "دخول", "msg-login-success": "مرحباً بك مجدداً!",
+                "about-desc": "الرحال هي منصة سفر تهدف إلى ربط المسافرين بتجارب فريدة داخل المغرب وخارجه. نؤمن أن السفر هو اكتشاف الثقافات.",
+                "quick-links": "روابط سريعة", "contact-info": "معلومات التواصل", "days": "أيام", "price-tag": "درهم"
+            }
+        };
+
+        // --- STATE ---
+        let currentLang = 'en';
+        let searchQuery = '';
+
+        // --- CORE FUNCTIONS ---
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            
+            // Toggle active class
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.innerText.toLowerCase() === lang);
+            });
+
+            // Update UI strings
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[lang][key]) el.innerText = translations[lang][key];
+            });
+
+            document.querySelectorAll('[data-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-placeholder');
+                if (translations[lang][key]) el.placeholder = translations[lang][key];
+            });
+
+            document.getElementById('aboutText').innerText = translations[lang]['about-desc'];
+
+            renderAll();
+        }
+
+        function navigateTo(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // --- RENDERING ---
+        function createTripCard(trip) {
+            const card = document.createElement('div');
+            card.className = 'trip-card fade-in';
+            const priceLabel = trip.price === 0 ? 'FREE' : `${trip.price} ${translations[currentLang]['price-tag']}`;
+            
+            card.innerHTML = `
+                <img src="${trip.img}" class="trip-img" alt="${trip.title[currentLang]}">
+                ${trip.best ? `<span class="trip-badge">Best Deal</span>` : ''}
+                <div class="trip-info">
+                    <h2>${trip.title[currentLang]}</h2>
+                    <div class="trip-meta">
+                        <span><i class="fas fa-clock"></i> ${trip.dur} ${translations[currentLang]['days']}</span>
+                        <span style="color:var(--primary)">${priceLabel}</span>
+                    </div>
+                    <p class="trip-desc">${trip.desc[currentLang]}</p>
+                    <div class="inclusions">
+                        ${trip.inc.map(i => `<span class="inc-tag">${i}</span>`).join('')}
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn-detail" onclick="openTripDetail(${trip.id})">${translations[currentLang]['view-details']}</button>
+                        <button class="btn-book" onclick="bookTrip(${trip.id})">${translations[currentLang]['book-btn']}</button>
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+
+        function renderAll() {
+            renderCategories();
+            renderTrips();
+            renderFAQ();
+            renderReviews();
+            populateBookingDropdown();
+        }
+
+        function renderCategories() {
+            const cats = [
+                { id: 'all', icon: '🎒', key: 'filter-all-cat' },
+                { id: 'morocco', icon: '🇲🇦', key: 'cat-morocco' },
+                { id: 'outside', icon: '🌍', key: 'cat-outside' },
+                { id: 'spiritual', icon: '🕋', key: 'cat-spiritual' },
+                { id: 'hidden', icon: '🌄', key: 'cat-hidden' },
+                { id: 'volunteer', icon: '🤝', key: 'cat-volunteer' }
+            ];
+            const grid = document.getElementById('categoryGrid');
+            grid.innerHTML = '';
+            cats.forEach(c => {
+                const card = document.createElement('div');
+                card.className = 'category-card';
+                card.onclick = () => {
+                    document.getElementById('filterCategory').value = c.id;
+                    navigateTo('trips');
+                    applyFilters();
+                };
+                card.innerHTML = `
+                    <span class="category-icon">${c.icon}</span>
+                    <h3 data-key="${c.key}">${translations[currentLang][c.key]}</h3>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function renderTrips() {
+            // Featured
+            const featuredGrid = document.getElementById('featuredTrips');
+            featuredGrid.innerHTML = '';
+            const query = searchQuery.toLowerCase();
+            const featured = tripsData.filter(t => t.best && t.title[currentLang].toLowerCase().includes(query));
+            featured.forEach(t => featuredGrid.appendChild(createTripCard(t)));
+
+            // All Trips Page
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const cat = document.getElementById('filterCategory').value;
+            const budget = document.getElementById('filterBudget').value;
+            const dur = document.getElementById('filterDuration').value;
+
+            const filtered = tripsData.filter(t => {
+                const matchCat = (cat === 'all' || t.category === cat);
+                let matchBudget = true;
+                if(budget === 'low') matchBudget = t.price < 2000;
+                else if(budget === 'mid') matchBudget = t.price >= 2000 && t.price <= 5000;
+                else if(budget === 'high') matchBudget = t.price > 5000 && t.price <= 10000;
+                else if(budget === 'lux') matchBudget = t.price > 10000;
+
+                let matchDur = true;
+                if(dur === 'short') matchDur = t.dur <= 3;
+                else if(dur === 'medium') matchDur = t.dur > 3 && t.dur <= 6;
+                else if(dur === 'long') matchDur = t.dur > 6;
+
+                return matchCat && matchBudget && matchDur;
+            });
+
+            const grid = document.getElementById('allTripsGrid');
+            grid.innerHTML = '';
+            filtered.forEach(t => grid.appendChild(createTripCard(t)));
+        }
+
+        function renderFAQ() {
+            const container = document.getElementById('faqAccordion');
+            container.innerHTML = '';
+            faqData.forEach((f, i) => {
+                const item = document.createElement('div');
+                item.className = 'faq-item';
+                item.innerHTML = `
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+                        ${f.q[currentLang]} <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">${f.a[currentLang]}</div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function renderReviews() {
+            const grid = document.getElementById('allReviewsGrid');
+            const featGrid = document.getElementById('featuredReviews');
+            grid.innerHTML = '';
+            featGrid.innerHTML = '';
+
+            reviewsData.forEach((r, i) => {
+                const card = `
+                    <div class="review-card fade-in">
+                        <div class="stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+                        <p>"${r.text}"</p>
+                        <div class="review-author">— ${r.name}, ${r.loc}</div>
+                    </div>
+                `;
+                grid.innerHTML += card;
+                if(i < 4) featGrid.innerHTML += card;
+            });
+        }
+
+        function populateBookingDropdown() {
+            const sel = document.getElementById('bookingTripSelect');
+            sel.innerHTML = '';
+            tripsData.forEach(t => {
+                sel.innerHTML += `<option value="${t.id}">${t.title[currentLang]}</option>`;
+            });
+        }
+
+        // --- ACTIONS ---
+        function handleSearch() {
+            searchQuery = document.getElementById('searchInput').value;
+            renderTrips();
+        }
+
+        function openTripDetail(id) {
+            const trip = tripsData.find(t => t.id === id);
+            const content = document.getElementById('modalContent');
+            content.innerHTML = `
+                <div class="modal-body">
+                    <div>
+                        <img src="${trip.img}" class="modal-img-main">
+                        <div class="gallery">
+                            <img src="${trip.img}">
+                            <img src="${trip.img}">
+                        </div>
+                    </div>
+                    <div>
+                        <h1 style="color:var(--primary); margin-bottom:15px;">${trip.title[currentLang]}</h1>
+                        <p style="margin-bottom:20px; font-size:1.1rem;">${trip.desc[currentLang]}</p>
+                        <div style="margin-bottom:15px;">
+                            <strong>Duration:</strong> ${trip.dur} Days<br>
+                            <strong>Price:</strong> ${trip.price} MAD<br>
+                            <strong>Available Dates:</strong> ${trip.dates}
+                        </div>
+                        <h3 style="margin-top:20px;">What's Included:</h3>
+                        <ul style="list-style:none; padding:10px 0;">
+                            ${trip.inc.map(i => `<li style="margin-bottom:8px;"><i class="fas fa-check-circle" style="color:var(--primary);"></i> ${i}</li>`).join('')}
+                        </ul>
+                        <button class="submit-btn" onclick="bookTrip(${trip.id})" style="margin-top:20px;">Book Now</button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('tripModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('tripModal').style.display = 'none';
+        }
+
+        function bookTrip(id) {
+            closeModal();
+            navigateTo('booking');
+            document.getElementById('bookingTripSelect').value = id;
+        }
+
+        function submitBooking() {
+            document.getElementById('bookingSuccess').style.display = 'block';
+            setTimeout(() => document.getElementById('bookingSuccess').style.display = 'none', 3000);
+        }
+
+        function submitReview() {
+            const name = document.getElementById('revName').value;
+            const text = document.getElementById('revText').value;
+            const stars = document.getElementById('revStars').value;
+            const loc = document.getElementById('revLoc').value;
+
+            if(!name || !text) return alert("Please fill fields");
+
+            reviewsData.unshift({ name, loc, text, stars: parseInt(stars) });
+            renderReviews();
+            document.getElementById('revSuccess').style.display = 'block';
+            setTimeout(() => document.getElementById('revSuccess').style.display = 'none', 3000);
+        }
+
+        function submitLogin() {
+            document.getElementById('loginSuccess').style.display = 'block';
+        }
+
+        // Initialize
+        window.onload = () => setLanguage('en');
+
+        // Sticky effect
+        window.onscroll = () => {
+            const header = document.getElementById('mainHeader');
+            if (window.scrollY > 50) header.style.padding = "5px 0";
+            else header.style.padding = "15px 0";
+        };
+    </script>
+</body>
+</html>
